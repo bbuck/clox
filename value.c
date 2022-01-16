@@ -11,7 +11,7 @@ void ValueArrayInit(ValueArray *array) {
 
 void ValueArrayWrite(ValueArray *array, Value value) {
 	if (array->capacity <= array->count) {
-		int old_cap = array->capacity;
+		size_t old_cap = array->capacity;
 		array->capacity = GROW_CAPACITY(old_cap);
 		array->values = GROW_ARRAY(
 			Value, array->values, old_cap, array->capacity);

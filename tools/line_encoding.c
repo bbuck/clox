@@ -52,7 +52,7 @@ static void LineInfoListAppendNode(LineInfoList *line_info_list, LineInfo node) 
  * @param line The line number to add to the list.
  */
 void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
-	if (line_info_list->capacity >= line_info_list->count) {
+	if (line_info_list->capacity <= line_info_list->count) {
 		int old_cap = line_info_list->capacity;
 		line_info_list->capacity = GROW_CAPACITY(old_cap);
 		line_info_list->nodes = GROW_ARRAY(

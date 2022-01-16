@@ -6,9 +6,7 @@ int main(void) {
 	Chunk chunk;
 	ChunkInit(&chunk);
 
-	int constant_loc = ChunkAddConstant(&chunk, 1.2);
-	ChunkWrite(&chunk, kOpConstant, 123);
-	ChunkWrite(&chunk, constant_loc, 123);
+	ChunkWriteConstant(&chunk, 1.2, 123);
 	ChunkWrite(&chunk, kOpReturn, 123);
 
 	DisassembleChunk(&chunk, "test chunk");

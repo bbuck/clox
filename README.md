@@ -63,3 +63,8 @@ here are the deviations I made and solutions I took to achieve them.
       on the same line (or worse if they're all on different lines) but assuming the spread of
       operations to lines skews in favor of a larger number of operations per line then this should
       work out well enough.
+   1. **Challenge 2:** I implemented `kOpConstant16` that supports reading two `uint8_t` values from
+      the code list and join them into a 16-bit value. The `kOpConstant*` variants are chosen
+      intelligently by using `ChunkWriteConstant` now. If you write a 256th constant (256 > uint8_t
+      max value) then the number is split into two 8-bit values and pushed into the code along with
+      the new `kOpConstant16` opcode in a big-endian format.

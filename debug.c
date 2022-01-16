@@ -18,12 +18,24 @@ static int SimpleInstruction(const char *name, int offset) {
 }
 
 static int ConstantInstruction(const char *name, Chunk *chunk, int offset) {
-	uint8_t constant_loc = chunk->code[offset + 1];
+	Opcode code = chunk->code[offset];
+
+	int constant_loc;
+	int offset_change = 2;
+
+	if (code == kOpConstant) {
+		constant_loc = chunk->code[offset + 1];
+	} else {
+		offset_change = 3;
+		constant_loc = chunk->code[offset + 1] << 8;
+		constant_loc += chunk->code[offset + 2];
+	}
+
 	printf("%-16s %4d '", name, constant_loc);
 	PrintValue(chunk->constants.values[constant_loc]);
 	printf("'\n");
 
-	return offset + 2;
+	return offset + offset_change;
 }
 
 int DisassembleInstruction(Chunk *chunk, int offset) {
@@ -40,6 +52,8 @@ int DisassembleInstruction(Chunk *chunk, int offset) {
 	switch (instruction) {
 		case kOpConstant:
 			return ConstantInstruction("kOpConstant", chunk, offset);
+		case kOpConstant16:
+			return ConstantInstruction("kOpConstant16", chunk, offset);
 		case kOpReturn:
 			return SimpleInstruction("kOpReturn", offset);
 		default:

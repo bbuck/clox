@@ -12,8 +12,8 @@ void ChunkInit(Chunk *chunk) {
 }
 
 void ChunkWrite(Chunk *chunk, uint8_t byte, int line) {
-	if (chunk->capacity == chunk->count) {
-		int old_cap = chunk->capacity;
+	if (chunk->capacity <= chunk->count) {
+		size_t old_cap = chunk->capacity;
 		chunk->capacity = GROW_CAPACITY(old_cap);
 		chunk->code = GROW_ARRAY(
 			uint8_t, chunk->code, old_cap, chunk->capacity);
@@ -31,10 +31,25 @@ int ChunkGetLine(Chunk *chunk, int instruction_loc) {
 	return LineInfoListGetLine(chunk->lines, instruction_loc);
 }
 
-int ChunkAddConstant(Chunk *chunk, Value value) {
+void ChunkWriteConstant(Chunk *chunk, Value value, int line) {
 	ValueArrayWrite(&chunk->constants, value);
+	size_t constant_loc = chunk->constants.count - 1;
 
-	return chunk->constants.count - 1;
+	if (constant_loc <= UINT8_MAX) {
+		ChunkWrite(chunk, kOpConstant, line);
+		ChunkWrite(chunk, constant_loc, line);
+
+		return;
+	}
+
+	ChunkWrite(chunk, kOpConstant16, line);
+	// take the first 8 bits from a 16 bit number
+	int start_loc = (constant_loc & 0xFF00) >> 8;
+	int end_loc = (constant_loc & 0xFF);
+	ChunkWrite(chunk, start_loc, line);
+	ChunkWrite(chunk, end_loc, line);
+
+	// TODO(bbuck): support further levels?
 }
 
 void ChunkFree(Chunk *chunk) {

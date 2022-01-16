@@ -7,12 +7,13 @@
 
 typedef enum Opcode {
 	kOpConstant,
+	kOpConstant16,
 	kOpReturn,
 } Opcode;
 
 typedef struct Chunk {
-	int count;
-	int capacity;
+	size_t count;
+	size_t capacity;
 	uint8_t *code;
 	LineInfoList *lines;
 	ValueArray constants;
@@ -20,7 +21,7 @@ typedef struct Chunk {
 
 void ChunkInit(Chunk *chunk);
 void ChunkWrite(Chunk *chunk, uint8_t byte, int line);
-int ChunkAddConstant(Chunk *chunk, Value value);
+void ChunkWriteConstant(Chunk *chunk, Value value, int line);
 int ChunkGetLine(Chunk *chunk, int instruction_loc);
 void ChunkFree(Chunk *chunk);
 
