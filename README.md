@@ -1,4 +1,6 @@
-# What is clox?
+# CLox
+
+## What is clox?
 
 The book [Crafting Interpreters by Bob Nystrom](http://www.craftinginterpreters.com)
 details the creation of a toy programming language called "Lox." The full
@@ -19,14 +21,36 @@ the Abstract Syntax Tree-based tree-walking implementation.
 **DISCLAIMER: This is not a serious project, this is not a serious language.
 This should not be used as a scripting language in a production application.**
 
-# Contributions
+## Building and Running
+
+You will need [Bazel](https://bazel.build) in order to build this project
+unless you want to do it by hand or configure your own Makefile (why would
+you?).
+
+Once you have Bazel, building is dead simple:
+
+```sh
+bazel build //:clox
+```
+
+That's it. Once that builds, you can then easily access the executable in
+`bazel-bin/clox` and do whatever you need with that executable.
+
+### Where is the Makefile?
+
+I don't really like Makefiles all that much. I mean don't get me wrong, they are
+very useful. And if I had not learned how to use [Bazel](https://bazel.build)
+I would definitely be using one. But, I do know about Bazel and I like the way
+it works better, so that's what I'm using.
+
+## Contributions
 
 Due to the nature of this as a guided project along side a book, at this time I
 will not be accepting any contributions. But feel free to file issues and point
 out any glaring errors you might have found in the source code as I would love
 to learn and address the issues.
 
-# Deviations
+## Deviations
 
 At the end of certain chapters the author provides "Challenges," some of these
 challenges include adding in some feature to the language that either hasn't
