@@ -1,0 +1,11 @@
+{
+  "cSpell.words": ["clox"],
+  "files.associations": {
+    "*.leex": "HTML (EEx)",
+    "__bit_reference": "c",
+    "__split_buffer": "c",
+    "filesystem": "c",
+    "string": "c",
+    "vector": "c"
+  }
+}
