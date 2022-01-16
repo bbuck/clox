@@ -1,8 +1,13 @@
 # C Lox binary and supporting libraries.
 
+package(
+    default_visibility = ["//:__subpackages__"],
+)
+
 cc_binary(
     name = "clox",
     srcs = ["main.c"],
+    visibility = ["//visibility:public"],
     deps = [
         ":chunk",
         ":common",
@@ -23,6 +28,7 @@ cc_library(
         ":common",
         ":memory",
         ":value",
+        "//tools:line_encoding",
     ],
 )
 

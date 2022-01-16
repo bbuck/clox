@@ -17,13 +17,18 @@ void ChunkWrite(Chunk *chunk, uint8_t byte, int line) {
 		chunk->capacity = GROW_CAPACITY(old_cap);
 		chunk->code = GROW_ARRAY(
 			uint8_t, chunk->code, old_cap, chunk->capacity);
-		chunk->lines = GROW_ARRAY(
-			int, chunk->lines, old_cap, chunk->capacity);
 	}
 
 	chunk->code[chunk->count] = byte;
-	chunk->lines[chunk->count] = line;
+	if (chunk->lines == NULL) {
+		chunk->lines = LineInfoListCreate();
+	}
+	LineInfoListAddLine(chunk->lines, line);
 	chunk->count++;
+}
+
+int ChunkGetLine(Chunk *chunk, int instruction_loc) {
+	return LineInfoListGetLine(chunk->lines, instruction_loc);
 }
 
 int ChunkAddConstant(Chunk *chunk, Value value) {
@@ -34,7 +39,7 @@ int ChunkAddConstant(Chunk *chunk, Value value) {
 
 void ChunkFree(Chunk *chunk) {
 	FREE_ARRAY(uint8_t, chunk->code, chunk->capacity);
-	FREE_ARRAY(int, chunk->lines, chunk->capacity);
 	ValueArrayFree(&chunk->constants);
+	LineInfoListFree(chunk->lines);
 	ChunkInit(chunk);
 }

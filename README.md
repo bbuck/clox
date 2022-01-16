@@ -57,4 +57,10 @@ challenges include adding in some feature to the language that either hasn't
 been implemented by that point or will not be addressed directly by the book. So
 here are the deviations I made and solutions I took to achieve them.
 
-**At this time, no deviations have been made.**
+1. **Chapter 14**
+   1. **Challenge 1:** I implement a run-length-esque encoding for line numbers as a way to store
+      them more "efficiently." It's not really "more efficient" when there are ~3-5 or so operations
+      on the same line (or worse if they're all on different lines) but assuming the spread of
+      operations to lines skews in favor of a larger number of operations per line then this should
+      work out well enough. It could be made a bit more efficient if `start` were dropped from the
+      `LineInfo` struct (maybe) but that would complicate searching a bit more.

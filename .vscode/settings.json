@@ -6,6 +6,8 @@
     "__split_buffer": "c",
     "filesystem": "c",
     "string": "c",
-    "vector": "c"
+    "vector": "c",
+    "memory.h": "c",
+    "line_encoding.h": "c"
   }
 }
