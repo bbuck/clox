@@ -68,3 +68,10 @@ here are the deviations I made and solutions I took to achieve them.
       intelligently by using `ChunkWriteConstant` now. If you write a 256th constant (256 > uint8_t
       max value) then the number is split into two 8-bit values and pushed into the code along with
       the new `kOpConstant16` opcode in a big-endian format.
+
+### Saved for later
+
+I'd really like to take on **Chapter 14, Challenge 3**'s "Hardcore Mode" (implementing my own
+allocation tools) but for the time being I'm going to pass on it for the sake of moving on with the
+chapters as I feel like this particular challenge is pretty large and my experience with C is fairly
+limited. But saving it for later to allow me to come back and take a stab at it.
