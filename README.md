@@ -62,5 +62,4 @@ here are the deviations I made and solutions I took to achieve them.
       them more "efficiently." It's not really "more efficient" when there are ~3-5 or so operations
       on the same line (or worse if they're all on different lines) but assuming the spread of
       operations to lines skews in favor of a larger number of operations per line then this should
-      work out well enough. It could be made a bit more efficient if `start` were dropped from the
-      `LineInfo` struct (maybe) but that would complicate searching a bit more.
+      work out well enough.
