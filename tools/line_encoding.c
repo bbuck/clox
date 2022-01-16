@@ -62,7 +62,6 @@ void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
 	// empty list
 	if (line_info_list->count == 0) {
 		LineInfo new_node = {
-			.start = 0,
 			.end = 0,
 			.line = line,
 		};
@@ -85,7 +84,6 @@ void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
 
 	// the new node starts and ends at the next offset from the last node
 	LineInfo new_node = {
-		.start = last_node.end + 1,
 		.end = last_node.end + 1,
 		.line = line,
 	};
@@ -112,12 +110,14 @@ int LineInfoListGetLine(LineInfoList *line_info_list, int index) {
 	while (start <= end) {
 		int target_index = (start + end) / 2;
 		LineInfo node = line_info_list->nodes[target_index];
-		if (node.start <= index && node.end >= index) {
+		if (target_index - 1 < 0 && index <= node.end) {
 			return node.line;
-		} else if (index < node.start) {
-			end = target_index - 1;
-		} else {
+		} else if (line_info_list->nodes[target_index - 1].end < index && index <= node.end) {
+			return node.line;
+		} else if (index > node.end) {
 			start = target_index + 1;
+		} else {
+			end = target_index - 1;
 		}
 	}
 

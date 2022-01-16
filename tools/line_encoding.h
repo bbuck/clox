@@ -4,7 +4,6 @@
 #include "common.h"
 
 typedef struct LineInfo {
-	int start;
 	int end;
 	int line;
 } LineInfo;
