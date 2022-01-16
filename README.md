@@ -1,11 +1,11 @@
-# CLox
+# C Lox
 
 ## What is clox?
 
 The book [Crafting Interpreters by Bob Nystrom](http://www.craftinginterpreters.com)
-details the creation of a toy programming language called "Lox." The full
-grammar for this toy language can be found
-[in the books appendix](http://www.craftinginterpreters.com/appendix-i.html).
+details the creation of a toy programming language called "Lox." The
+[full grammar for this toy language](http://www.craftinginterpreters.com/appendix-i.html)
+can be found in the book's appendix.
 
 This project represents my traversal through this book's Part III. My work
 through Part II can be found in my
@@ -29,8 +29,8 @@ you?).
 
 Once you have Bazel, building is dead simple:
 
-```sh
-bazel build //:clox
+```
+$ bazel build //:clox
 ```
 
 That's it. Once that builds, you can then easily access the executable in
@@ -39,9 +39,9 @@ That's it. Once that builds, you can then easily access the executable in
 ### Where is the Makefile?
 
 I don't really like Makefiles all that much. I mean don't get me wrong, they are
-very useful. And if I had not learned how to use [Bazel](https://bazel.build)
-I would definitely be using one. But, I do know about Bazel and I like the way
-it works better, so that's what I'm using.
+very useful. And if I had not learned how to use Bazel I would definitely be
+using one. But, I do know about Bazel and I like the way it works better, so
+that's what I'm using.
 
 ## Contributions
 
