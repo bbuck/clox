@@ -20,6 +20,15 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "line_encoding_test",
+    srcs = ["line_encoding_test.c"],
+    deps = [
+        "//tools:line_encoding",
+        "@user_local//:criterion",
+    ],
+)
+
 cc_library(
     name = "helpers",
     srcs = ["helpers.c"],

@@ -22,7 +22,7 @@ typedef struct Chunk {
 void ChunkInit(Chunk *chunk);
 void ChunkWrite(Chunk *chunk, uint8_t byte, int line);
 void ChunkWriteConstant(Chunk *chunk, Value value, int line);
-int ChunkGetLine(Chunk *chunk, int instruction_loc);
+int ChunkGetLine(Chunk *chunk, size_t instruction_loc);
 void ChunkFree(Chunk *chunk);
 
 #endif

@@ -27,7 +27,7 @@ void ChunkWrite(Chunk *chunk, uint8_t byte, int line) {
 	chunk->count++;
 }
 
-int ChunkGetLine(Chunk *chunk, int instruction_loc) {
+int ChunkGetLine(Chunk *chunk, size_t instruction_loc) {
 	return LineInfoListGetLine(chunk->lines, instruction_loc);
 }
 
@@ -55,6 +55,6 @@ void ChunkWriteConstant(Chunk *chunk, Value value, int line) {
 void ChunkFree(Chunk *chunk) {
 	FREE_ARRAY(uint8_t, chunk->code, chunk->capacity);
 	ValueArrayFree(&chunk->constants);
-	LineInfoListFree(chunk->lines);
+	LineInfoListFree(&chunk->lines);
 	ChunkInit(chunk);
 }

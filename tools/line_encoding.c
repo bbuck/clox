@@ -26,6 +26,7 @@ void LineInfoListInit(LineInfoList *line_info_list) {
 	line_info_list->nodes = NULL;
 }
 
+// append a node to the list of nodes
 static void LineInfoListAppendNode(LineInfoList *line_info_list, LineInfo node) {
 	line_info_list->nodes[line_info_list->count] = node;
 	line_info_list->count++;
@@ -53,7 +54,7 @@ static void LineInfoListAppendNode(LineInfoList *line_info_list, LineInfo node) 
  */
 void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
 	if (line_info_list->capacity <= line_info_list->count) {
-		int old_cap = line_info_list->capacity;
+		size_t old_cap = line_info_list->capacity;
 		line_info_list->capacity = GROW_CAPACITY(old_cap);
 		line_info_list->nodes = GROW_ARRAY(
 			LineInfo, line_info_list->nodes, old_cap, line_info_list->capacity);
@@ -103,21 +104,21 @@ void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
  * @param index The index of the value seeking line information for
  * @return int The line number of the given index (or -1 if not found).
  */
-int LineInfoListGetLine(LineInfoList *line_info_list, int index) {
-	int start = 0;
-	int end = line_info_list->count;
+int LineInfoListGetLine(LineInfoList *line_info_list, size_t index) {
+	size_t lower = 0;
+	size_t upper = line_info_list->count;
 
-	while (start <= end) {
-		int target_index = (start + end) / 2;
+	while (lower <= upper) {
+		size_t target_index = (lower + upper) / 2;
 		LineInfo node = line_info_list->nodes[target_index];
 		if (target_index - 1 < 0 && index <= node.end) {
 			return node.line;
 		} else if (line_info_list->nodes[target_index - 1].end < index && index <= node.end) {
 			return node.line;
 		} else if (index > node.end) {
-			start = target_index + 1;
+			lower = target_index + 1;
 		} else {
-			end = target_index - 1;
+			upper = target_index - 1;
 		}
 	}
 
@@ -129,7 +130,9 @@ int LineInfoListGetLine(LineInfoList *line_info_list, int index) {
  *
  * @param line_info_list The \c LineInfoList pointer.
  */
-void LineInfoListFree(LineInfoList *line_info_list) {
-	FREE_ARRAY(LineInfo, line_info_list->nodes, line_info_list->capacity);
-	free(line_info_list);
+void LineInfoListFree(LineInfoList **line_info_list) {
+	LineInfoList *list = *line_info_list;
+	FREE_ARRAY(LineInfo, list->nodes, list->capacity);
+	free(*line_info_list);
+	*line_info_list = NULL;
 }
