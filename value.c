@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "memory.h"
 #include "value.h"
+
+static const int kValueBufferLength = 1024;
 
 void ValueArrayInit(ValueArray *array) {
 	array->values = NULL;
@@ -26,6 +29,23 @@ void ValueArrayFree(ValueArray *array) {
 	ValueArrayInit(array);
 }
 
+char *ValueToString(Value value) {
+	char *buffer = malloc(sizeof(char) * kValueBufferLength);
+	for (int i = 0; i < kValueBufferLength; ++i) {
+		buffer[i] = '\0';
+	}
+	int result = snprintf(buffer, kValueBufferLength, "%g", value);
+	if (result == 0) {
+		fprintf(stderr, "Failed to convert value to string.");
+		exit(2);
+	}
+	buffer[1024] = '\0';
+
+	return buffer;
+}
+
 void PrintValue(Value value) {
-	printf("%g", value);
+	char *value_str = ValueToString(value);
+	puts(value_str);
+	free(value_str);
 }

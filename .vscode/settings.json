@@ -10,6 +10,7 @@
     "memory.h": "c",
     "line_encoding.h": "c",
     "criterion.h": "c",
-    "assert.h": "c"
+    "assert.h": "c",
+    "stdlib.h": "c"
   }
 }

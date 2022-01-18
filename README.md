@@ -44,7 +44,7 @@ installed at `/usr/local/lib/libcriterion.dylib` and `/usr/local/include/criteri
 in order to run tests. Once that is set up, then ideally you just run the tests:
 
 ```
-$ bazel test //test:unit_tests
+$ bazel test //test:{chunk_test,value_test,...}
 ```
 
 ### Where is the Makefile?
