@@ -115,6 +115,7 @@ Test(LineInfoList, LineInfoListGetLine) {
 	line = LineInfoListGetLine(list, 55);
 	cr_assert(line == -1, "Expected LineInfoListGetLine(..., %d) == %d, but got %d", 55, -1, line);
 
+
 	LineInfoListFree(&list);
 }
 

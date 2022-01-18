@@ -1,7 +1,8 @@
+#include <stdio.h>
 #include <stdlib.h>
 
-#include "line_encoding.h"
 #include "../memory.h"
+#include "line_encoding.h"
 
 /**
  * @brief Create a new \c LineInfoList and return a pointer to it.
@@ -10,6 +11,10 @@
  */
 LineInfoList *LineInfoListCreate() {
 	LineInfoList *list = (LineInfoList *)malloc(sizeof(LineInfoList));
+	if (list == NULL) {
+		fprintf(stderr, "ERR_OUT_OF_MEMORY: allocation failed");
+		exit(1);
+	}
 	LineInfoListInit(list);
 
 	return list;
@@ -105,13 +110,20 @@ void LineInfoListAddLine(LineInfoList *line_info_list, int line) {
  * @return int The line number of the given index (or -1 if not found).
  */
 int LineInfoListGetLine(LineInfoList *line_info_list, size_t index) {
+	if (line_info_list == NULL || line_info_list->count == 0 || index < 0) {
+		return -1;
+	}
+
 	size_t lower = 0;
 	size_t upper = line_info_list->count;
 
 	while (lower <= upper) {
 		size_t target_index = (lower + upper) / 2;
+		if (target_index >= line_info_list->count) {
+			break;
+		}
 		LineInfo node = line_info_list->nodes[target_index];
-		if (target_index - 1 < 0 && index <= node.end) {
+		if (target_index == 0 && index <= node.end) {
 			return node.line;
 		} else if (line_info_list->nodes[target_index - 1].end < index && index <= node.end) {
 			return node.line;
