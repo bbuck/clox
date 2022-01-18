@@ -36,6 +36,17 @@ $ bazel build //:clox
 That's it. Once that builds, you can then easily access the executable in
 `bazel-bin/clox` and do whatever you need with that executable.
 
+### Testing
+
+Testing is a bit more of a beast, and maybe this affects builds (I hope not, but I'm too lazy to
+verify at this very moment). You will need to have the [criterion testing framework]()
+installed at `/usr/local/lib/libcriterion.dylib` and `/usr/local/include/criterion/criterion.h`
+in order to run tests. Once that is set up, then ideally you just run the tests:
+
+```
+$ bazel test //test:unit_tests
+```
+
 ### Where is the Makefile?
 
 I don't really like Makefiles all that much. I mean don't get me wrong, they are
@@ -68,6 +79,10 @@ here are the deviations I made and solutions I took to achieve them.
       intelligently by using `ChunkWriteConstant` now. If you write a 256th constant (256 > uint8_t
       max value) then the number is split into two 8-bit values and pushed into the code along with
       the new `kOpConstant16` opcode in a big-endian format.
+   1. **Testing:** Not really a _challenge_ per se but there was note about testing the
+      implementation and tests are good things. I wanted to experiment with testing in C so I went
+      ahead and rolled my own test suite. Is it great? No. Is it what you should do in your project?
+      No. But it works, so there is that.
 
 ### Saved for later
 

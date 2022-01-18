@@ -8,6 +8,8 @@
     "string": "c",
     "vector": "c",
     "memory.h": "c",
-    "line_encoding.h": "c"
+    "line_encoding.h": "c",
+    "criterion.h": "c",
+    "assert.h": "c"
   }
 }
