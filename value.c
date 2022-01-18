@@ -46,6 +46,6 @@ char *ValueToString(Value value) {
 
 void PrintValue(Value value) {
 	char *value_str = ValueToString(value);
-	puts(value_str);
+	fputs(value_str, stdout);
 	free(value_str);
 }
