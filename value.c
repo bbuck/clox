@@ -29,6 +29,35 @@ void ValueArrayFree(ValueArray *array) {
 	ValueArrayInit(array);
 }
 
+void ValueStackInit(ValueStack *stack) {
+	stack->top = 0;
+	ValueArrayInit(&stack->array);
+}
+
+void ValueStackPush(ValueStack *stack, Value value) {
+	if (stack->top < stack->array.count) {
+		stack->array.values[stack->top] = value;
+	} else {
+		ValueArrayWrite(&stack->array, value);
+	}
+
+	stack->top += 1;
+}
+
+Value ValueStackPop(ValueStack *stack) {
+	if (stack->top == 0) {
+		return 0.0;
+	}
+
+	stack->top -= 1;
+
+	return stack->array.values[stack->top];
+}
+
+void ValueStackFree(ValueStack *stack) {
+	ValueArrayFree(&stack->array);
+}
+
 char *ValueToString(Value value) {
 	char *buffer = malloc(sizeof(char) * kValueBufferLength);
 	for (int i = 0; i < kValueBufferLength; ++i) {

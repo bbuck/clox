@@ -83,6 +83,8 @@ here are the deviations I made and solutions I took to achieve them.
       implementation and tests are good things. I wanted to experiment with testing in C so I went
       ahead and rolled my own test suite. Is it great? No. Is it what you should do in your project?
       No. But it works, so there is that.
+1. **Chapter 15**
+   1. **Challenge 3:** I wrapped `ValueArray` to create `ValueStack` to make a growable stack for the VM instead of a fixed size 256 value stack.
 
 ### Saved for later
 

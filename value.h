@@ -11,9 +11,19 @@ typedef struct ValueArray {
 	Value *values;
 } ValueArray;
 
+typedef struct ValueStack {
+	size_t top;
+	ValueArray array;
+} ValueStack;
+
 void ValueArrayInit(ValueArray *array);
 void ValueArrayWrite(ValueArray *array, Value value);
 void ValueArrayFree(ValueArray *array);
+
+void ValueStackInit(ValueStack *stack);
+void ValueStackPush(ValueStack *stack, Value value);
+Value ValueStackPop(ValueStack *stack);
+void ValueStackFree(ValueStack *stack);
 
 char *ValueToString(Value value);
 void PrintValue(Value value);

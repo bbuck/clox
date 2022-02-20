@@ -5,13 +5,10 @@
 #include "common.h"
 #include "value.h"
 
-#define STACK_MAX 256
-
 typedef struct Vm {
 	Chunk *chunk;
 	uint8_t *ip;
-	Value stack[STACK_MAX];
-	Value *stack_top;
+	ValueStack value_stack;
 } Vm;
 
 typedef enum InterpretResult {

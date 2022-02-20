@@ -7,19 +7,19 @@
 Vm vm;
 
 static void VmResetStack() {
-	vm.stack_top = vm.stack;
+	vm.value_stack.top = 0;
 }
 
 void VmInit() {
 	vm.chunk = NULL;
 	vm.ip = NULL;
-	VmResetStack();
+	ValueStackInit(&vm.value_stack);
 }
 
 void VmFree() {
 	vm.chunk = NULL;
 	vm.ip = NULL;
-	VmResetStack();
+	ValueStackFree(&vm.value_stack);
 }
 
 static InterpretResult Run() {
@@ -38,9 +38,9 @@ static InterpretResult Run() {
 	while (true) {
 #ifdef DEBUG_TRACE_EXECUTION
 		fputs("          ", stdout);
-		for (Value *slot = vm.stack; slot < vm.stack_top; ++slot) {
+		for (size_t i = 0; i < vm.value_stack.top; ++i) {
 			fputs("[ ", stdout);
-			PrintValue(*slot);
+			PrintValue(vm.value_stack.array.values[i]);
 			fputs(" ]", stdout);
 		}
 		puts("");
@@ -95,12 +95,9 @@ InterpretResult VmInterpret(Chunk *chunk) {
 }
 
 void VmPush(Value value) {
-	*vm.stack_top = value;
-	vm.stack_top++;
+	ValueStackPush(&vm.value_stack, value);
 }
 
 Value VmPop() {
-	vm.stack_top--;
-
-	return *vm.stack_top;
+	return ValueStackPop(&vm.value_stack);
 }
