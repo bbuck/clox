@@ -8,6 +8,11 @@
 typedef enum Opcode {
 	kOpConstant,
 	kOpConstant16,
+	kOpAdd,
+	kOpSubtract,
+	kOpMultiply,
+	kOpDivide,
+	kOpNegate,
 	kOpReturn,
 } Opcode;
 

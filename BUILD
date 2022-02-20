@@ -12,6 +12,19 @@ cc_binary(
         ":chunk",
         ":common",
         ":debug",
+        ":vm",
+    ],
+)
+
+cc_binary(
+    name = "clox_trace",
+    srcs = ["main.c"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":chunk",
+        ":common",
+        ":debug",
+        ":vm_trace",
     ],
 )
 
@@ -51,4 +64,29 @@ cc_library(
     srcs = ["value.c"],
     hdrs = ["value.h"],
     deps = [":memory"],
+)
+
+cc_library(
+    name = "vm",
+    srcs = ["vm.c"],
+    hdrs = ["vm.h"],
+    deps = [
+        ":chunk",
+        ":common",
+        ":debug",
+        ":value",
+    ],
+)
+
+cc_library(
+    name = "vm_trace",
+    srcs = ["vm.c"],
+    hdrs = ["vm.h"],
+    local_defines = ["DEBUG_TRACE_EXECUTION"],
+    deps = [
+        ":chunk",
+        ":common",
+        ":debug",
+        ":value",
+    ],
 )

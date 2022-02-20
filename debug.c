@@ -17,7 +17,7 @@ static int SimpleInstruction(const char *name, int offset) {
 	return offset + 1;
 }
 
-static int ConstantInstruction(const char *name, Chunk *chunk, int offset) {
+static int ConstantInstruction(const char *name, Chunk *chunk, size_t offset) {
 	Opcode code = chunk->code[offset];
 
 	int constant_loc;
@@ -38,8 +38,8 @@ static int ConstantInstruction(const char *name, Chunk *chunk, int offset) {
 	return offset + offset_change;
 }
 
-int DisassembleInstruction(Chunk *chunk, int offset) {
-	printf("%04d ", offset);
+int DisassembleInstruction(Chunk *chunk, size_t offset) {
+	printf("%04zu ", offset);
 	int prev_line = ChunkGetLine(chunk, offset - 1);
 	int curr_line = ChunkGetLine(chunk, offset);
 	if (offset > 0 && curr_line == prev_line) {
@@ -54,6 +54,16 @@ int DisassembleInstruction(Chunk *chunk, int offset) {
 			return ConstantInstruction("kOpConstant", chunk, offset);
 		case kOpConstant16:
 			return ConstantInstruction("kOpConstant16", chunk, offset);
+		case kOpAdd:
+			return SimpleInstruction("kOpAdd", offset);
+		case kOpSubtract:
+			return SimpleInstruction("kOpSubtract", offset);
+		case kOpMultiply:
+			return SimpleInstruction("kOpMultiply", offset);
+		case kOpDivide:
+			return SimpleInstruction("kOpDivide", offset);
+		case kOpNegate:
+			return SimpleInstruction("kOpNegate", offset);
 		case kOpReturn:
 			return SimpleInstruction("kOpReturn", offset);
 		default:
