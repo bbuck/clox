@@ -7,7 +7,7 @@
 Vm vm;
 
 static void VmResetStack() {
-	vm.value_stack.top = 0;
+	vm.stack_top = vm.stack;
 }
 
 void VmInit() {
