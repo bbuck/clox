@@ -85,6 +85,7 @@ here are the deviations I made and solutions I took to achieve them.
       No. But it works, so there is that.
 1. **Chapter 15**
    1. **Challenge 3:** I wrapped `ValueArray` to create `ValueStack` to make a growable stack for the VM instead of a fixed size 256 value stack.
+   1. **Challenge 4:** `kOpNegate` is executed in place. originally it is done by popping the value and then pushing it's negative but now it simply negates the value in place (some slight copying).
 
 ### Saved for later
 

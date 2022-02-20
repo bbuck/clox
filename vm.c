@@ -68,10 +68,12 @@ static InterpretResult Run() {
 			case kOpMultiply: BINARY_OP(*); break;
 			case kOpDivide: BINARY_OP(/); break;
 
-			case kOpNegate:
-				VmPush(-VmPop());
+			case kOpNegate: {
+				Value value = vm.value_stack.array.values[vm.value_stack.top - 1];
+				vm.value_stack.array.values[vm.value_stack.top - 1] = -value;
 
 				break;
+			}
 			case kOpReturn: {
 				PrintValue(VmPop());
 				puts("");
